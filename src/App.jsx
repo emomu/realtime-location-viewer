@@ -11,8 +11,10 @@ function App() {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
+    // Socket bağlantısını başlat
     socketService.connect();
 
+    // Bağlantı durumunu izle
     if (socketService.socket) {
       socketService.socket.on('connect', () => {
         setIsConnected(true);
@@ -25,12 +27,13 @@ function App() {
       });
     }
 
+    // Tüm konumları dinle
     socketService.onAllLocations((data) => {
       const onlineUsers = data.filter((user) => user.isOnline);
       setUsers(onlineUsers);
-      console.log('👥 Kullanıcılar yüklendi:', onlineUsers.length);
     });
 
+    // Konum güncellemelerini dinle
     socketService.onLocationUpdate((updatedUser) => {
       setUsers((prevUsers) => {
         const existingIndex = prevUsers.findIndex(
@@ -38,25 +41,33 @@ function App() {
         );
 
         if (existingIndex !== -1) {
+          // Mevcut kullanıcıyı güncelle
           const newUsers = [...prevUsers];
-          newUsers[existingIndex] = updatedUser;
+          newUsers[existingIndex] = {
+            ...updatedUser,
+            lastUpdate: new Date(),
+          };
           return newUsers;
         } else {
-          return [...prevUsers, updatedUser];
+          // Yeni kullanıcı ekle
+          return [...prevUsers, { ...updatedUser, lastUpdate: new Date() }];
         }
       });
     });
 
+    // Kullanıcı çevrimdışı olduğunda
     socketService.onUserOffline((data) => {
       setUsers((prevUsers) =>
         prevUsers.filter((user) => user.userId !== data.userId)
       );
       
+      // Seçili kullanıcı çevrimdışı olduysa, seçimi kaldır
       if (selectedUser?.userId === data.userId) {
         setSelectedUser(null);
       }
     });
 
+    // Cleanup
     return () => {
       socketService.disconnect();
     };

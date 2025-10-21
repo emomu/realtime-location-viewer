@@ -1,0 +1,96 @@
+.header {
+  background: #000;
+  z-index: 1000;
+}
+
+.header-content {
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 24px;
+}
+
+.logo-text {
+  font-size: 14px;
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.header-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.connection-status.connected {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.connection-status.disconnected {
+  background: transparent;
+  border-color: #f44336;
+  color: #f44336;
+}
+
+.connection-status .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.connection-status.connected .status-dot {
+  background: #fff;
+}
+
+.connection-status.disconnected .status-dot {
+  background: #f44336;
+}
+
+.user-count-badge {
+  background: transparent;
+  color: #fff;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    padding: 12px 20px;
+  }
+  
+  .logo-text {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+}

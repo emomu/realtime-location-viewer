@@ -9,7 +9,7 @@ class SocketService {
     if (this.socket?.connected) return;
 
     this.socket = io('http://54.164.111.251:4004', {
-      transports: ['websocket', 'polling'],
+      transports: ['websocket', 'polling'], // polling ekledik
       autoConnect: true,
       reconnection: true,
       reconnectionDelay: 1000,
@@ -18,7 +18,10 @@ class SocketService {
 
     this.socket.on('connect', () => {
       console.log('✅ Socket bağlandı:', this.socket.id);
+      // Viewer olarak bağlanmaya çalış
       this.socket.emit('viewer-connected');
+      
+      // Eğer authenticate eventi varsa onu da dene
       this.socket.emit('authenticate', 'viewer-token');
     });
 
@@ -42,6 +45,7 @@ class SocketService {
     }
   }
 
+  // initial-locations eventini dinle (Flutter app bu eventi gönderiyor)
   onAllLocations(callback) {
     if (this.socket) {
       this.socket.on('initial-locations', (data) => {
@@ -76,6 +80,4 @@ class SocketService {
   }
 }
 
-// Named instance export
-const socketServiceInstance = new SocketService();
-export default socketServiceInstance;
+export default new SocketService();

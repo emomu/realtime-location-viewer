@@ -1,6 +1,7 @@
 {
   "name": "realtime-location-viewer",
   "version": "0.1.0",
+  "homepage": "https://emomu.github.io/realtime-location-viewer",
   "private": true,
   "dependencies": {
     "@react-google-maps/api": "^2.20.7",

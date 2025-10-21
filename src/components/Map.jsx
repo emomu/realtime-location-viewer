@@ -42,7 +42,7 @@ function Map({ users, selectedUser, onMarkerClick }) {
       map.panTo({ lat: selectedUser.latitude, lng: selectedUser.longitude });
       map.setZoom(16);
     }
-  }, [map, selectedUser]); // map eklendi
+  }, [map, selectedUser]);
 
   // Sadece İLK YÜKLEMEDE tüm kullanıcıları göster
   useEffect(() => {
@@ -55,7 +55,7 @@ function Map({ users, selectedUser, onMarkerClick }) {
       hasInitialized.current = true;
       console.log('🗺️ Harita ilk kez ayarlandı');
     }
-  }, [map, users]); // users eklendi
+  }, [map, users]);
 
   if (!isLoaded) {
     return (

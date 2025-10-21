@@ -36,15 +36,15 @@ function Map({ users, selectedUser, onMarkerClick }) {
     setMap(null);
   }, []);
 
-  // SADECE kullanıcı listeden birine tıkladığında zoom yap
+  // SADECE seçili kullanıcıya zoom yap
   useEffect(() => {
     if (map && selectedUser) {
       map.panTo({ lat: selectedUser.latitude, lng: selectedUser.longitude });
       map.setZoom(16);
     }
-  }, [selectedUser]); // map'i kaldırdık, sadece selectedUser değişince çalışsın
+  }, [map, selectedUser]); // map eklendi
 
-  // Sadece İLK YÜKLEMEDE tüm kullanıcıları göster (BİR KERELİK)
+  // Sadece İLK YÜKLEMEDE tüm kullanıcıları göster
   useEffect(() => {
     if (map && users.length > 0 && !hasInitialized.current) {
       const bounds = new window.google.maps.LatLngBounds();
@@ -53,9 +53,9 @@ function Map({ users, selectedUser, onMarkerClick }) {
       });
       map.fitBounds(bounds);
       hasInitialized.current = true;
-      console.log('🗺️ Harita ilk kez ayarlandı, artık hiç değişmeyecek');
+      console.log('🗺️ Harita ilk kez ayarlandı');
     }
-  }, [map, users.length]); // Sadece map ve user sayısı değişince kontrol et
+  }, [map, users]); // users eklendi
 
   if (!isLoaded) {
     return (

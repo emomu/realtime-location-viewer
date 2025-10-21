@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/realtime-location-viewer/static/css/main.f2024db3.css",
+    "main.js": "/realtime-location-viewer/static/js/main.1c08465a.js",
+    "static/js/453.4dc41a91.chunk.js": "/realtime-location-viewer/static/js/453.4dc41a91.chunk.js",
+    "index.html": "/realtime-location-viewer/index.html",
+    "main.f2024db3.css.map": "/realtime-location-viewer/static/css/main.f2024db3.css.map",
+    "main.1c08465a.js.map": "/realtime-location-viewer/static/js/main.1c08465a.js.map",
+    "453.4dc41a91.chunk.js.map": "/realtime-location-viewer/static/js/453.4dc41a91.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f2024db3.css",
+    "static/js/main.1c08465a.js"
+  ]
+}

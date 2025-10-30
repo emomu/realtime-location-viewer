@@ -83,8 +83,32 @@
   font-weight: 300;
   letter-spacing: 1px;
 }
+.frequency-badge {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 6px 12px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #fff;
+}
 
-@media (max-width: 768px) {
+.leave-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.leave-button:hover {
+  background: #fff;
+  color: #000;
+}
+
+@media (max-width: 900px) {
   .header-content {
     padding: 12px 20px;
   }
@@ -93,4 +117,29 @@
     font-size: 12px;
     letter-spacing: 2px;
   }
+}
+/* Mevcut CSS'in altına ekle */
+
+.user-name-badge {
+  font-size: 10px;
+  color: #999;
+  letter-spacing: 1px;
+  margin-left: 15px;
+}
+
+.logout-button {
+  background: transparent;
+  border: 1px solid #ff000060;
+  color: #ff0000;
+  padding: 6px 12px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logout-button:hover {
+  background: #ff0000;
+  color: #fff;
+  border-color: #ff0000;
 }

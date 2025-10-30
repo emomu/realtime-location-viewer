@@ -21,9 +21,9 @@ function UserList({ users, onUserSelect, selectedUser }) {
               className={`user-item ${selectedUser?.userId === user.userId ? 'selected' : ''}`}
               onClick={() => onUserSelect(user)}
             >
-              <img 
-                src="/taxi.png" 
-                alt="taxi" 
+              <img
+                src={`${process.env.PUBLIC_URL}/taxi.png`}
+                alt="taxi"
                 className="user-icon"
               />
               <div className="user-info">

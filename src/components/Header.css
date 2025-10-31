@@ -143,3 +143,22 @@
   color: #fff;
   border-color: #ff0000;
 }
+
+.settings-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-button:hover {
+  background: #fff;
+  border-color: #fff;
+  transform: rotate(90deg);
+}

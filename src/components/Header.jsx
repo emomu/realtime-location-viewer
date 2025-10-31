@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 
-function Header({ userCount, isConnected, frequency, onLeaveFrequency, onLogout, userName }) {
+function Header({ userCount, isConnected, frequency, onLeaveFrequency, onLogout, userName, onSettingsClick }) {
   return (
     <header className="header">
       <div className="header-content">
@@ -13,16 +13,20 @@ function Header({ userCount, isConnected, frequency, onLeaveFrequency, onLogout,
         <div className="frequency-badge">
           📻 {frequency}
         </div>
-        
+
         <div className="header-info">
           <div className={`connection-status ${isConnected ? 'connected' : 'disconnected'}`}>
             <span className="status-dot"></span>
             <span>{isConnected ? 'Bağlı' : 'Bağlantı Kesildi'}</span>
           </div>
-          
+
           <div className="user-count-badge">
             <span>{userCount} Taksi</span>
           </div>
+
+          <button className="settings-button" onClick={onSettingsClick} title="Ayarlar">
+            ⚙️
+          </button>
 
           <button className="leave-button" onClick={onLeaveFrequency}>
             FREKANS DEĞİŞTİR

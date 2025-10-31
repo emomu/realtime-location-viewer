@@ -20,7 +20,7 @@ const mapOptions = {
   fullscreenControl: true,
 };
 
-function Map({ users, selectedUser, onMarkerClick }) {
+function Map({ users, selectedUser, onMarkerClick, mapSettings }) {
   const [map, setMap] = useState(null);
   const [zoom, setZoom] = useState(10);
   const hasInitialized = useRef(false);
@@ -402,6 +402,40 @@ function Map({ users, selectedUser, onMarkerClick }) {
     );
   }
 
+  // Map style JSON'ları
+  const getMapStyle = () => {
+    if (!mapSettings?.mapStyle || mapSettings.mapStyle === 'default') return null;
+
+    const styles = {
+      dark: [
+        { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
+        { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
+        { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
+        { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#38414e' }] },
+        { featureType: 'road', elementType: 'geometry.stroke', stylers: [{ color: '#212a37' }] },
+        { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#9ca5b3' }] },
+        { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#17263c' }] }
+      ],
+      silver: [
+        { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }] },
+        { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
+        { elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
+        { elementType: 'labels.text.stroke', stylers: [{ color: '#f5f5f5' }] },
+        { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+        { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c9c9c9' }] }
+      ],
+      retro: [
+        { elementType: 'geometry', stylers: [{ color: '#ebe3cd' }] },
+        { elementType: 'labels.text.fill', stylers: [{ color: '#523735' }] },
+        { elementType: 'labels.text.stroke', stylers: [{ color: '#f5f1e6' }] },
+        { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#f5f1e6' }] },
+        { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c9c9c9' }] }
+      ]
+    };
+
+    return styles[mapSettings.mapStyle] || null;
+  };
+
   return (
     <GoogleMap
       mapContainerStyle={containerStyle}
@@ -409,7 +443,12 @@ function Map({ users, selectedUser, onMarkerClick }) {
       zoom={10}
       onLoad={onLoad}
       onUnmount={onUnmount}
-      options={mapOptions}
+      options={{
+        ...mapOptions,
+        mapTypeId: mapSettings?.mapTypeId || 'roadmap',
+        zoomControl: mapSettings?.zoomControl !== false,
+        styles: getMapStyle(),
+      }}
     >
       {users.map((user) => {
         const markerSize = getMarkerSize();

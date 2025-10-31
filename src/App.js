@@ -4,6 +4,7 @@ import Map from './components/Map';
 import UserList from './components/UserList';
 import FrequencyScreen from './components/FrequencyScreen';
 import LoginScreen from './components/LoginScreen';
+import SettingsScreen from './components/SettingsScreen';
 import socketService from './services/socketService';
 import './App.css';
 
@@ -14,6 +15,16 @@ function App() {
   const [currentFrequency, setCurrentFrequency] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [showSettings, setShowSettings] = useState(false);
+
+  // Harita ayarları
+  const [mapSettings, setMapSettings] = useState({
+    mapTypeId: 'roadmap',
+    mapStyle: 'default',
+    polylineColor: '#1976D2',
+    zoomControl: true,
+    trafficAutoStart: false,
+  });
 
   // Sayfa yüklendiğinde token kontrolü
   useEffect(() => {
@@ -158,6 +169,10 @@ function App() {
     setUsers([]);
   };
 
+  const handleSettingsChange = (newSettings) => {
+    setMapSettings((prev) => ({ ...prev, ...newSettings }));
+  };
+
   if (!isAuthenticated) {
     return <LoginScreen onLoginSuccess={handleLoginSuccess} />;
   }
@@ -168,30 +183,40 @@ function App() {
 
   return (
     <div className="app">
-      <Header 
-        userCount={users.length} 
+      <Header
+        userCount={users.length}
         isConnected={isConnected}
         frequency={currentFrequency}
         onLeaveFrequency={handleLeaveFrequency}
         onLogout={handleLogout}
         userName={currentUser?.name}
+        onSettingsClick={() => setShowSettings(true)}
       />
-      
+
       <div className="app-content">
         <UserList
           users={users}
           onUserSelect={setSelectedUser}
           selectedUser={selectedUser}
         />
-        
+
         <div className="map-container">
           <Map
             users={users}
             selectedUser={selectedUser}
             onMarkerClick={setSelectedUser}
+            mapSettings={mapSettings}
           />
         </div>
       </div>
+
+      {showSettings && (
+        <SettingsScreen
+          settings={mapSettings}
+          onSettingsChange={handleSettingsChange}
+          onClose={() => setShowSettings(false)}
+        />
+      )}
     </div>
   );
 }
